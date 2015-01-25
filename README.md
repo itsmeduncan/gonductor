@@ -6,14 +6,14 @@ MTA subway line status command line tool
 
 ## Usage
 
+### Command line interface
 ```
 gonductor --line=NQR
-
-NQR GOOD SERCIVE
+#=> GOOD SERVICE
 ```
 
-## Tmux Status Bar
-
+### In a tmux status bar
 ```
-set -g status-right '#(gonductor -t --line=123)'
+gonductor -t --line=NQR
+#=> #[fg=colour3]NQR
 ```

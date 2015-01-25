@@ -70,7 +70,7 @@ func queryForStatusOf(l string) {
 			if tmux {
 				fmt.Printf("%s%s", ColorForTmux[line.Status], line.Name)
 			} else {
-				fmt.Printf("%s %s\n", line.Name, line.Status)
+				fmt.Println(line.Status)
 			}
 		}
 	}
