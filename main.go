@@ -51,7 +51,7 @@ var ColorForTmux = map[string]string{
 
 var tmux bool = false
 
-func queryForStatusOf(l string) {
+func queryForStatusOf(line string) {
 	url := "http://web.mta.info/status/serviceStatus.txt"
 	res, err := http.Get(url)
 	if err != nil {
@@ -65,12 +65,12 @@ func queryForStatusOf(l string) {
 	body, err := ioutil.ReadAll(res.Body)
 	xml.Unmarshal(body, &service)
 
-	for _, line := range service.Subway.Line {
-		if line.Name == l {
+	for _, l := range service.Subway.Line {
+		if l.Name == line {
 			if tmux {
-				fmt.Printf("%s%s", ColorForTmux[line.Status], line.Name)
+				fmt.Printf("%s%s", ColorForTmux[l.Status], l.Name)
 			} else {
-				fmt.Println(line.Status)
+				fmt.Printf("%s %s\n", l.Name, l.Status)
 			}
 		}
 	}
@@ -88,10 +88,10 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "gonductor"
 	app.Usage = "Simple tool for MTA subway status"
+	app.Version = "1.0.0"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "line,l",
-			Value: "123",
 			Usage: "subway line to check the status of",
 		},
 		cli.BoolFlag{
