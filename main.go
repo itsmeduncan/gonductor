@@ -43,10 +43,10 @@ var AvailableLines = []string{
 }
 
 var ColorForTmux = map[string]string{
-	"GOOD SERVICE":   "#[fg=green]",
-	"PLANNED WORK":   "#[fg=colour3]",
-	"SERVICE CHANGE": "#[fg=colour214]",
-	"DELAYS":         "#[fg=red]",
+	"GOOD SERVICE":   "#[fg=green]√",
+	"PLANNED WORK":   "#[fg=colour3]−",
+	"SERVICE CHANGE": "#[fg=colour214]−",
+	"DELAYS":         "#[fg=red]☓",
 }
 
 var tmux bool = false
@@ -68,7 +68,7 @@ func queryForStatusOf(line string) {
 	for _, l := range service.Subway.Line {
 		if l.Name == line {
 			if tmux {
-				fmt.Printf("%s%s", ColorForTmux[l.Status], l.Name)
+				fmt.Printf("%s", ColorForTmux[l.Status])
 			} else {
 				fmt.Printf("%s %s\n", l.Name, l.Status)
 			}
