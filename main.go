@@ -1,3 +1,6 @@
+/*
+Package main implements a simple CLI tool for checking train statuses.
+*/
 package main
 
 import (
@@ -10,17 +13,17 @@ import (
 	"os"
 )
 
-type Service struct {
+type service struct {
 	ResponseCode string `xml:"responsecode"`
 	Timestamp    string `xml:"timestamp"`
-	Subway       Subway `xml:"subway"`
+	Subway       subway `xml:"subway"`
 }
 
-type Subway struct {
-	Line []Line `xml:"line"`
+type subway struct {
+	Line []line `xml:"line"`
 }
 
-type Line struct {
+type line struct {
 	Name   string `xml:"name"`
 	Status string `xml:"status"`
 	Text   string `xml:"text"`
@@ -28,7 +31,7 @@ type Line struct {
 	Time   string
 }
 
-var AvailableLines = []string{
+var availableLines = []string{
 	"123",
 	"456",
 	"7",
@@ -42,14 +45,14 @@ var AvailableLines = []string{
 	"SIR",
 }
 
-var ColorForTmux = map[string]string{
+var colorForTmux = map[string]string{
 	"GOOD SERVICE":   "#[fg=green]√",
 	"PLANNED WORK":   "#[fg=colour3]−",
 	"SERVICE CHANGE": "#[fg=colour214]−",
 	"DELAYS":         "#[fg=red]☓",
 }
 
-var tmux bool = false
+var tmux = false
 
 func queryForStatusOf(line string) {
 	url := "http://web.mta.info/status/serviceStatus.txt"
@@ -61,14 +64,14 @@ func queryForStatusOf(line string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	service := Service{}
+	service := service{}
 	body, err := ioutil.ReadAll(res.Body)
 	xml.Unmarshal(body, &service)
 
 	for _, l := range service.Subway.Line {
 		if l.Name == line {
 			if tmux {
-				fmt.Printf("%s", ColorForTmux[l.Status])
+				fmt.Printf("%s", colorForTmux[l.Status])
 			} else {
 				fmt.Printf("%s %s\n", l.Name, l.Status)
 			}
@@ -77,7 +80,7 @@ func queryForStatusOf(line string) {
 }
 
 func statusOf(line string) {
-	for _, availableLine := range AvailableLines {
+	for _, availableLine := range availableLines {
 		if line == availableLine {
 			queryForStatusOf(line)
 		}
