@@ -1,6 +1,6 @@
 # gonductor
 
-[![Build Status](https://travis-ci.org/itsmeduncan/gonductor.svg?branch=master)](https://travis-ci.org/itsmeduncan/gonductor)
+[![Build Status](https://travis-ci.org/itsmeduncan/gonductor.svg?branch=master)](https://travis-ci.org/itsmeduncan/gonductor) [![Code Climate](https://codeclimate.com/github/itsmeduncan/gonductor/badges/gpa.svg)](https://codeclimate.com/github/itsmeduncan/gonductor)
 
 MTA subway line status command line tool
 
