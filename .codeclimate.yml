@@ -1,9 +1,0 @@
----
-engines:
-  golint:
-    enabled: true
-  govet:
-    enabled: true
-  gofmt:
-    enabled: true
-exclude_paths: []
