@@ -1,16 +1,14 @@
-/*
-Package main implements a simple CLI tool for checking train statuses.
-*/
 package main
 
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/codegangsta/cli"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/urfave/cli"
 )
 
 type service struct {
@@ -65,7 +63,7 @@ func queryForStatusOf(line string) {
 		log.Fatal(err)
 	}
 	service := service{}
-	body, err := ioutil.ReadAll(res.Body)
+	body, _ := ioutil.ReadAll(res.Body)
 	xml.Unmarshal(body, &service)
 
 	for _, l := range service.Subway.Line {
@@ -91,7 +89,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "gonductor"
 	app.Usage = "Simple tool for MTA subway status"
-	app.Version = "1.0.0"
+	app.Version = "2.0.0"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "line,l",
